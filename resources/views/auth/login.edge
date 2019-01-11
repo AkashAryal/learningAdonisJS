@@ -1,0 +1,39 @@
+@layout('layouts.main')
+@section('title')
+JobPostr - Login
+@endsection
+@section('extra_css')
+{{ style('forms') }}
+@endsection
+
+@section('content')
+<h1>Login Now</h1>
+<div class="job-container">
+  @if(flashMessage('loginError'))
+  <span> {{ flashMessage('loginError') }} </span>
+  @endif
+  @if(flashMessage('admin'))
+  <span> {{ flashMessage('admin') }} </span>
+  @endif
+  <form  action="{{ route('UserController.login') }}" method="POST">
+    {{ csrfField() }}
+    <label for="username">Username</label>
+    <input type="text" name="username" value="{{ old('username','') }}">
+    @if(hasErrorFor('username'))
+    <span>
+      {{ getErrorFor('username')}}
+    </span>
+    @endif
+
+    <label for="password">Password</label>
+    <input type="password" name="password">
+    @if(hasErrorFor('password'))
+    <span>
+      {{ getErrorFor('password')}}
+    </span>
+    @endif
+
+    <button type="submit">Login Now</button>
+  </form>
+</div>
+@endsection
